@@ -4,6 +4,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Product } from "../models/product";
 import { ShoppingCartService } from "../shopping-cart.service";
+import { ShoppingCart } from "../models/shopping-cart";
 
 @Component({
   selector: "app-products",
@@ -13,7 +14,7 @@ import { ShoppingCartService } from "../shopping-cart.service";
 export class ProductsComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   filteredProducts: Product[] = [];
-  cart: any;
+  cart: ShoppingCart;
   category: string;
   private subscription: Subscription;
 
@@ -40,7 +41,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.subscription = (await this.shoppingCartService.getCart())
       .snapshotChanges()
-      .subscribe((cart) => (this.cart = cart));
+      .subscribe((cart) => {
+        this.cart = cart.payload.val();
+      });
   }
 
   ngOnDestroy() {

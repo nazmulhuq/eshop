@@ -1,6 +1,7 @@
 import { Product } from "./../models/product";
 import { Component, Input, OnInit } from "@angular/core";
 import { ShoppingCartService } from "../shopping-cart.service";
+import { ShoppingCart } from "../models/shopping-cart";
 
 @Component({
   selector: "product-card",
@@ -10,7 +11,7 @@ import { ShoppingCartService } from "../shopping-cart.service";
 export class ProductCardComponent implements OnInit {
   @Input("product") product;
   @Input("showActions") showActions = true;
-  @Input("shopping-cart") shoppingCart;
+  @Input("shopping-cart") shoppingCart: ShoppingCart;
   constructor(private cartService: ShoppingCartService) {}
 
   ngOnInit() {}
@@ -25,7 +26,7 @@ export class ProductCardComponent implements OnInit {
 
   getQuantity() {
     if (!this.shoppingCart) return 0;
-    let item = this.shoppingCart.payload.val().items[this.product.key];
+    let item = this.shoppingCart.items[this.product.key];
     return item ? item.quantity : 0;
   }
 }

@@ -1,5 +1,6 @@
 import { SnapshotAction } from "angularfire2/database";
 import { Product } from "../models/product";
+import { ShoppingCart } from "../models/shopping-cart";
 
 export class mapper {
   static mapToProduct(item: SnapshotAction<unknown>): Product {
@@ -22,5 +23,11 @@ export class mapper {
     product.value.imageUrl = jsonValue.imageUrl;
 
     return product;
+  }
+
+  static mapToShoppingCart(actionCart: SnapshotAction<ShoppingCart>) {
+    let value = actionCart.payload.val();
+    let cart = new ShoppingCart();
+    console.log(value);
   }
 }
