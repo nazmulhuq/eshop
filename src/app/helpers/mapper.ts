@@ -24,10 +24,4 @@ export class mapper {
 
     return product;
   }
-
-  static mapToShoppingCart(actionCart: SnapshotAction<ShoppingCart>) {
-    let value = actionCart.payload.val();
-    let cart = new ShoppingCart();
-    console.log(value);
-  }
 }

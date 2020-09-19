@@ -20,21 +20,11 @@ export class BsNavbarComponent implements OnInit {
 
   async ngOnInit() {
     this.auth.appUser$.subscribe((user) => (this.appUser = user));
+
     let cart$ = await this.shoppingCartService.getCart();
     cart$.snapshotChanges().subscribe((action) => {
-      let cart: ShoppingCart = action.payload.val();
+      let cart = new ShoppingCart(action);
       this.shoppingCartItemCount = cart.totalItemsCount;
-      mapper.mapToShoppingCart(action);
-      alert(
-        `bs-navbar: update mapper
-         and take away the cart item counting code to ShoppingCart property `
-      );
-
-      //counting cart item quantity
-
-      this.shoppingCartItemCount = 0;
-      for (let productId in cart.items)
-        this.shoppingCartItemCount += cart.items[productId].quantity;
     });
   }
 
