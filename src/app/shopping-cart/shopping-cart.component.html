@@ -6,19 +6,28 @@
       <tr>
         <th>Product</th>
         <th>Quantity</th>
-        <th></th>
+        <th>Price</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let productId of cart.productIds">
-        <td *ngIf="cart.items[productId].quantity !== 0">
+        <td *ngIf="cart.items[productId].quantity">
           {{ cart.items[productId].product.value.title }}
         </td>
-        <td *ngIf="cart.items[productId].quantity !== 0">
+        <td *ngIf="cart.items[productId].quantity">
           {{ cart.items[productId].quantity }}
         </td>
-        <td *ngIf="cart.items[productId].quantity !== 0"></td>
+        <td *ngIf="cart.items[productId].quantity">
+          {{ cart.items[productId].totalPrice | currency: "USD":true }}
+        </td>
       </tr>
     </tbody>
+    <tfoot>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>{{ cart.totalPrice | currency: "USD":true }}</th>
+      </tr>
+    </tfoot>
   </table>
 </ng-container>

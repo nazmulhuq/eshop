@@ -1,4 +1,4 @@
-export interface Product {
+export class Product {
   key: string;
   value: {
     title: string;

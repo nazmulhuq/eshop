@@ -3,12 +3,18 @@ import { ShoppingCartItem } from "./shopping-cart-item";
 
 export class ShoppingCart {
   public dateCreated: string;
-  public items: ShoppingCartItem[];
+  public items: ShoppingCartItem[] = [];
 
   constructor(actionCart?: SnapshotAction<ShoppingCart>) {
     if (actionCart) {
       let value = actionCart.payload.val();
-      this.items = value.items;
+      let itemsMap: ShoppingCartItem[] = value.items;
+
+      for (let productId in itemsMap) {
+        let item = itemsMap[productId];
+        this.items.push(new ShoppingCartItem(item.product, item.quantity));
+      }
+
       this.dateCreated = value.dateCreated;
     }
   }
@@ -16,6 +22,11 @@ export class ShoppingCart {
   get totalItemsCount(): number {
     let count = 0;
     for (let productId in this.items) count += this.items[productId].quantity;
+    return count;
+  }
+  get totalPrice(): number {
+    let count = 0;
+    for (let productId in this.items) count += this.items[productId].totalPrice;
     return count;
   }
 
