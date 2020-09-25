@@ -22,13 +22,25 @@ export class ProductsComponent implements OnInit, OnDestroy {
     private productService: ProductService,
     private shoppingCartService: ShoppingCartService,
     private route: ActivatedRoute
-  ) {
-    this.productService
-      .getAllProducts()
-      .subscribe(
-        (products) => (this.filteredProducts = this.products = products)
-      );
+  ) {}
 
+  async ngOnInit() {
+    this.getProducts();
+
+    this.applyFilter();
+
+    this.getCart();
+  }
+
+  private async getCart() {
+    this.subscription = (await this.shoppingCartService.getCart())
+      .snapshotChanges()
+      .subscribe((action) => {
+        this.cart = new ShoppingCart(action);
+      });
+  }
+
+  private applyFilter() {
     this.route.queryParamMap.subscribe((params) => {
       this.category = params.get("category");
 
@@ -38,12 +50,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
     });
   }
 
-  async ngOnInit() {
-    this.subscription = (await this.shoppingCartService.getCart())
-      .snapshotChanges()
-      .subscribe((cart) => {
-        this.cart = cart.payload.val();
-      });
+  private getProducts() {
+    this.productService
+      .getAllProducts()
+      .subscribe(
+        (products) => (this.filteredProducts = this.products = products)
+      );
   }
 
   ngOnDestroy() {

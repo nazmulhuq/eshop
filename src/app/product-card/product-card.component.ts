@@ -9,7 +9,7 @@ import { ShoppingCart } from "../models/shopping-cart";
   styleUrls: ["./product-card.component.css"],
 })
 export class ProductCardComponent implements OnInit {
-  @Input("product") product;
+  @Input("product") product: Product;
   @Input("showActions") showActions = true;
   @Input("shopping-cart") shoppingCart: ShoppingCart;
   constructor(private cartService: ShoppingCartService) {}
@@ -18,15 +18,5 @@ export class ProductCardComponent implements OnInit {
 
   addToCart() {
     this.cartService.addToCart(this.product);
-  }
-
-  removeFromCart() {
-    this.cartService.removeFromCart(this.product);
-  }
-
-  getQuantity() {
-    if (!this.shoppingCart) return 0;
-    let item = this.shoppingCart.items[this.product.key];
-    return item ? item.quantity : 0;
   }
 }

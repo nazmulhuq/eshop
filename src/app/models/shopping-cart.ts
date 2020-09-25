@@ -1,5 +1,7 @@
+import { Product } from "./product";
 import { SnapshotAction } from "angularfire2/database";
 import { ShoppingCartItem } from "./shopping-cart-item";
+import { promise } from "protractor";
 
 export class ShoppingCart {
   public dateCreated: string;
@@ -32,5 +34,10 @@ export class ShoppingCart {
 
   get productIds() {
     return Object.keys(this.items);
+  }
+
+  getQuantity(product: Product) {
+    let item = this.items.find((p) => p.product.key == product.key);
+    return item ? item.quantity : 0;
   }
 }

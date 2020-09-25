@@ -32,7 +32,6 @@ export class ProductFormComponent implements OnInit {
         .pipe(take(1))
         .subscribe((p) => {
           this.product = p;
-          console.log(this.product);
         });
     }
   }

@@ -32,6 +32,7 @@ import { DataTableModule } from "ng-angular8-datatable";
 import { ProductFilterComponent } from "./products/prduct-filter/prduct-filter.component";
 import { ProductCardComponent } from "./product-card/product-card.component";
 import { ShoppingCartService } from "./shopping-cart.service";
+import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ShoppingCartService } from "./shopping-cart.service";
     ProductFormComponent,
     ProductFilterComponent,
     ProductCardComponent,
+    ProductQuantityComponent,
   ],
   imports: [
     BrowserModule,

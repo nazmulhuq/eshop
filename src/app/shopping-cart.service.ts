@@ -1,3 +1,4 @@
+import { ProductQuantityComponent } from "./product-quantity/product-quantity.component";
 import { take } from "rxjs/operators";
 import { Product } from "./models/product";
 import { AngularFireDatabase, AngularFireObject } from "angularfire2/database";
@@ -22,6 +23,19 @@ export class ShoppingCartService {
     return this.db.object("/shopping-carts/" + cartId);
   }
 
+  async addToCart(product: Product) {
+    this.updateItemQuantity(product, 1);
+  }
+
+  async removeFromCart(product: Product) {
+    this.updateItemQuantity(product, -1);
+  }
+
+  async clearCart() {
+    let cartId = await this.getOrCreateCartId();
+    this.db.object("/shopping-carts/" + cartId + "/items").remove();
+  }
+
   private async getOrCreateCartId() {
     let cartId = localStorage.getItem("cartId");
     if (cartId) return cartId;
@@ -34,14 +48,6 @@ export class ShoppingCartService {
     return this.db.object("/shopping-carts/" + cartId + "/items/" + productId);
   }
 
-  async addToCart(product: Product) {
-    this.updateItemQuantity(product, 1);
-  }
-
-  async removeFromCart(product: Product) {
-    this.updateItemQuantity(product, -1);
-  }
-
   private async updateItemQuantity(product: Product, change: number) {
     let cartId = await this.getOrCreateCartId();
     let item$ = this.getItem(cartId, product.key);
@@ -51,8 +57,11 @@ export class ShoppingCartService {
       .subscribe((item) => {
         let value = JSON.parse(JSON.stringify(item.payload.val()));
 
-        if (item.key) item$.update({ quantity: value.quantity + change });
-        else item$.set({ product: product, quantity: 1 });
+        if (item.key) {
+          let newQuantity = value.quantity + change;
+          if (newQuantity === 0) item$.remove();
+          else item$.update({ quantity: value.quantity + change });
+        } else item$.set({ product: product, quantity: 1 });
       });
   }
 }
