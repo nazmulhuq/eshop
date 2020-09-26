@@ -16,7 +16,7 @@ import { Router } from "@angular/router";
 export class CheckOutComponent implements OnInit, OnDestroy {
   userId: string;
   cart: ShoppingCart;
-  shipping: any;
+  shipping: any = {};
   userSubscription: Subscription;
   cartSubscription: Subscription;
 
@@ -41,12 +41,6 @@ export class CheckOutComponent implements OnInit, OnDestroy {
     let order = new Order(this.userId, this.shipping, this.cart);
     let result = await this.orderService.placeOrder(order);
     this.router.navigate(["/order-success", result.key]);
-  }
-
-  save(formData: any) {
-    this.shipping = formData;
-
-    this.placeOrder();
   }
 
   ngOnDestroy() {
