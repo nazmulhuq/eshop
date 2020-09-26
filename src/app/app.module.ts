@@ -32,7 +32,9 @@ import { DataTableModule } from "ng-angular8-datatable";
 import { ProductFilterComponent } from "./products/prduct-filter/prduct-filter.component";
 import { ProductCardComponent } from "./product-card/product-card.component";
 import { ShoppingCartService } from "./shopping-cart.service";
-import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
+import { ProductQuantityComponent } from "./product-quantity/product-quantity.component";
+import { OrderService } from "./order.service";
+import { ShoppingCartSummeryComponent } from './shopping-cart-summery/shopping-cart-summery.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,7 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
     ProductFilterComponent,
     ProductCardComponent,
     ProductQuantityComponent,
+    ShoppingCartSummeryComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,7 +77,7 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
         canActivate: [AuthGuard],
       },
       {
-        path: "order-success",
+        path: "order-success/:id",
         component: OrderSuccessComponent,
         canActivate: [AuthGuard],
       },
@@ -115,6 +118,7 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
     CategoryService,
     ProductService,
     ShoppingCartService,
+    OrderService,
   ],
   bootstrap: [AppComponent],
 })

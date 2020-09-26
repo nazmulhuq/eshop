@@ -25,7 +25,6 @@ export class BsNavbarComponent implements OnInit {
     cart$.snapshotChanges().subscribe((action) => {
       let cart = new ShoppingCart(action);
       this.shoppingCartItemCount = cart.totalItemsCount;
-      console.log(this.shoppingCartItemCount);
     });
   }
 
