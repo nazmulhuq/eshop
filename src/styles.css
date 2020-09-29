@@ -1,8 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
+@import "~font-awesome/css/font-awesome.css";
 body {
   padding-top: 10%;
 }
 .anchor-pointer {
   cursor: pointer;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: yellowgreen;
+  border-color: yellowgreen;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: rgb(126, 170, 40);
+  border-color: yellowgreen;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: rgb(126, 170, 40);
+  border-color: #005cbf;
+}
+.btn-primary:disabled {
+  background-color: rgb(183, 192, 166);
+  border-color: rgb(183, 192, 166);
+}
+
+.form-control:focus {
+  border-color: yellowgreen;
+  box-shadow: 0 0 0 0.2rem rgb(241, 241, 241);
+}
+
+a:hover {
+  color: yellowgreen;
+}
+.page-item.active .page-link {
+  z-index: 1;
+  color: #fff;
+  background-color: yellowgreen;
+  border-color: yellowgreen;
 }

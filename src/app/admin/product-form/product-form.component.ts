@@ -12,6 +12,7 @@ import { take } from "rxjs/operators";
 })
 export class ProductFormComponent implements OnInit {
   categories$;
+  public heading: string;
   product: Product = {
     key: null,
     value: { title: null, price: null, category: null, imageUrl: null },
@@ -26,14 +27,17 @@ export class ProductFormComponent implements OnInit {
     this.categories$ = this.categoryService.getCategories();
 
     this.id = route.snapshot.paramMap.get("id");
-    if (this.id) {
-      this.productService
-        .getProduct(this.id)
-        .pipe(take(1))
-        .subscribe((p) => {
-          this.product = p;
-        });
+    if (!this.id) {
+      this.heading = "Add New Product";
+      return;
     }
+    this.productService
+      .getProduct(this.id)
+      .pipe(take(1))
+      .subscribe((p) => {
+        this.product = p;
+      });
+    this.heading = "Edit Product";
   }
 
   ngOnInit() {}

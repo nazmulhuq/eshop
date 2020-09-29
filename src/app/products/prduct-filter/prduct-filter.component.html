@@ -3,7 +3,11 @@
     <a
       class="list-group-item list-group-item-action"
       [routerLink]="['/']"
-      [ngStyle]="!category ? { 'background-color': '#f8f9fa' } : null"
+      [ngStyle]="
+        !category
+          ? { 'background-color': '#f8f9fa', color: 'yellowgreen' }
+          : null
+      "
     >
       All Categories
     </a>
@@ -12,7 +16,11 @@
       class="list-group-item list-group-item-action"
       [routerLink]="['/']"
       [queryParams]="{ category: c.key }"
-      [ngStyle]="category === c.key ? { 'background-color': '#f8f9fa' } : null"
+      [ngStyle]="
+        category === c.key
+          ? { 'background-color': '#f8f9fa', color: 'yellowgreen' }
+          : null
+      "
     >
       {{ c.value.name }}
     </a>
