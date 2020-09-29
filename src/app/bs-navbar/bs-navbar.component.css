@@ -22,3 +22,6 @@
 .navbar-light .navbar-nav .nav-link:focus {
   color: yellowgreen;
 }
+.navbar {
+  border-bottom: 1px solid rgb(210, 224, 181);
+}
