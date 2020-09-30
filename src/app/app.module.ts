@@ -34,7 +34,8 @@ import { ProductCardComponent } from "./product-card/product-card.component";
 import { ShoppingCartService } from "./shopping-cart.service";
 import { ProductQuantityComponent } from "./product-quantity/product-quantity.component";
 import { OrderService } from "./order.service";
-import { ShoppingCartSummeryComponent } from './shopping-cart-summery/shopping-cart-summery.component';
+import { ShoppingCartSummeryComponent } from "./shopping-cart-summery/shopping-cart-summery.component";
+import { OrderDetailsComponent } from "./order-details/order-details.component";
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { ShoppingCartSummeryComponent } from './shopping-cart-summery/shopping-c
     ProductCardComponent,
     ProductQuantityComponent,
     ShoppingCartSummeryComponent,
+    OrderDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,6 +86,11 @@ import { ShoppingCartSummeryComponent } from './shopping-cart-summery/shopping-c
       {
         path: "my/orders",
         component: MyOrdersComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "my/order-details/:id",
+        component: OrderDetailsComponent,
         canActivate: [AuthGuard],
       },
 

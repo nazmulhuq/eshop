@@ -1,0 +1,79 @@
+<div class="row">
+  <div class="col-6">
+    <div class="card" style="padding: 0em; margin-bottom: 5%">
+      <div class="card-body" *ngIf="order$ | async as order">
+        <p>
+          You have ordered <b>{{ order.value.totalQuantity }}</b> items on
+          <b>{{ order.value.datePlaced | date }}</b>
+          <span
+            *ngIf="order.value.orderStatus === orderStatusProcessing"
+            class="badge badge-warning float-right"
+          >
+            {{ order.value.orderStatus }}...
+          </span>
+          <span
+            *ngIf="order.value.orderStatus === orderStatusDelivered"
+            class="badge badge-success float-right"
+          >
+            {{ order.value.orderStatus }}
+          </span>
+        </p>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th class="text-center">Quantity</th>
+              <th class="text-right">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of order.value.items">
+              <td>
+                {{ item.product.title }}
+              </td>
+              <td class="text-center">
+                {{ item.quantity }}
+              </td>
+              <td class="text-right">
+                {{ item.totalPrice | currency: "USD":true }}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th></th>
+              <th class="text-right">Total</th>
+              <th class="text-right">
+                {{ order.value.totalPrice | currency: "USD":true }}
+              </th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="card" style="border: 0em">
+      <div class="card-body">
+        <h5 class="card-title">Shipping Info</h5>
+        <div *ngIf="order$ | async as order">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <b>Ordered By:</b> {{ order.value.shipping.name }}
+            </li>
+            <li class="list-group-item">
+              <b>Address Line 1:</b> {{ order.value.shipping.addressLine1 }}
+            </li>
+            <li class="list-group-item">
+              <b>Address Line 2:</b>{{ order.value.shipping.addressLine2 }}
+            </li>
+            <li class="list-group-item">
+              <b> City:</b> {{ order.value.shipping.city }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
