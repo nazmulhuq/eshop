@@ -19,7 +19,23 @@ export class OrderService {
     return result;
   }
 
-  getOrders() {
+  getOrders(appUserId?: string) {
+    if (appUserId) {
+      console.log("user id");
+      return this.db
+        .list("/orders", (ref) => ref.orderByChild("userId").equalTo(appUserId))
+        .snapshotChanges()
+        .pipe(
+          map((changes) => {
+            return changes.map((item) => ({
+              key: item.payload.key,
+              value: item.payload.val(),
+            }));
+          })
+        );
+    }
+    console.log("no id");
+
     return this.db
       .list("/orders")
       .snapshotChanges()
