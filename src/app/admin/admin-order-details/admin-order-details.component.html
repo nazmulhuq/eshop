@@ -1,0 +1,15 @@
+<order-details [orderId]="orderId"></order-details>
+<button
+  *ngIf="currentOrderStatus === orderStatusProcessing"
+  (click)="changeOrderStatus(orderStatusDelivered)"
+  class="btn btn-sm btn-primary"
+>
+  Deliver
+</button>
+<button
+  *ngIf="currentOrderStatus === orderStatusDelivered"
+  (click)="changeOrderStatus(orderStatusProcessing)"
+  class="btn btn-sm btn-warning"
+>
+  Return
+</button>

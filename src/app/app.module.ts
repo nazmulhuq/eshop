@@ -36,6 +36,9 @@ import { ProductQuantityComponent } from "./product-quantity/product-quantity.co
 import { OrderService } from "./order.service";
 import { ShoppingCartSummeryComponent } from "./shopping-cart-summery/shopping-cart-summery.component";
 import { OrderDetailsComponent } from "./order-details/order-details.component";
+import { OrdersComponent } from "./orders/orders.component";
+import { MyOrderDetailsComponent } from "./my-order-details/my-order-details.component";
+import { AdminOrderDetailsComponent } from "./admin/admin-order-details/admin-order-details.component";
 
 @NgModule({
   declarations: [
@@ -56,6 +59,9 @@ import { OrderDetailsComponent } from "./order-details/order-details.component";
     ProductQuantityComponent,
     ShoppingCartSummeryComponent,
     OrderDetailsComponent,
+    OrdersComponent,
+    MyOrderDetailsComponent,
+    AdminOrderDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,7 +96,7 @@ import { OrderDetailsComponent } from "./order-details/order-details.component";
       },
       {
         path: "my/order-details/:id",
-        component: OrderDetailsComponent,
+        component: MyOrderDetailsComponent,
         canActivate: [AuthGuard],
       },
 
@@ -113,6 +119,11 @@ import { OrderDetailsComponent } from "./order-details/order-details.component";
       {
         path: "admin/orders",
         component: AdminOrdersComponent,
+        canActivate: [AuthGuard, AdminAuthGuard],
+      },
+      {
+        path: "admin/order-details/:id",
+        component: AdminOrderDetailsComponent,
         canActivate: [AuthGuard, AdminAuthGuard],
       },
     ]),

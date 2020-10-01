@@ -34,10 +34,9 @@ export class OrderService {
           })
         );
     }
-    console.log("no id");
 
     return this.db
-      .list("/orders")
+      .list("/orders", (ref) => ref.orderByChild("orderStatus"))
       .snapshotChanges()
       .pipe(
         map((changes) => {
@@ -58,5 +57,10 @@ export class OrderService {
           return { key: changes.payload.key, value: changes.payload.val() };
         })
       );
+  }
+
+  changeOrderStatus(orderId: string, changedStatus: string) {
+    console.log(changedStatus);
+    this.db.object("/orders/" + orderId).update({ orderStatus: changedStatus });
   }
 }
